@@ -9,7 +9,10 @@ int strlength(const char* str) {
 int strstr(const char *text, const char *pattern)
 {
     /* ... */
-    int nessesary = strlength(pattern);
+   int nessesary = strlength(pattern);
+   if (nessesary > strlength(text)) {
+		return -1;
+   }
    if (nessesary == 0) {
         return 0;
     }
