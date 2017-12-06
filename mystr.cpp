@@ -9,33 +9,32 @@ int strlength(const char* str) {
 int strstr(const char *text, const char *pattern)
 {
     /* ... */
-   int nessesary = strlength(pattern);
-   if (nessesary > strlength(text)) {
-		return -1;
-   }
-   if (nessesary == 0) {
+	int nessesary = strlength(pattern);
+    if (nessesary == 0) {
         return 0;
     }
-    const char* tmp = pattern;
-    int id = 0;
+    const char* ppatern = pattern;
+    int i = 0;
     int actual = 0;
+    char first = *pattern;
 
-    while (*text) {
-        if (*text == *pattern) {
-            while (*text == *tmp && *text) {
-                tmp++;
-                text++;
-                actual++;
-                id++;
-            }
-            if (actual == nessesary) return id - nessesary;
-        }else{
+    while (*text && actual < nessesary) {
+        if (*text == *ppatern) {
+            ppatern++;
+            actual++;
+        }else if (*text == first) {
+            i--;
+            text--;
+            ppatern = pattern;
             actual = 0;
-            tmp = pattern;
+        }else{
+            ppatern = pattern;
+            actual = 0;
         }
-
+        i++;
         text++;
-        id++;
     }
-    return  -1;
+
+    if (actual < nessesary) return  -1;
+    return i - nessesary;
 }
